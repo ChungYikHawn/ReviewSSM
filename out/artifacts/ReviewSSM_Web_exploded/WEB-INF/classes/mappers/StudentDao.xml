@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hang.dao.StudentDao">
+  <resultMap id="BaseResultMap" type="com.hang.domain.Student">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+  </resultMap>
+
+  <resultMap id="StudentClassMap" type="com.hang.domain.Student">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <association property="classes"  javaType="Classes">
+      <id column="cid"  property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="CHAR"></result>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, gender, class_id
+  </sql>
+
+  <select id="testAssociation" resultMap="StudentClassMap">
+    select s.*,c.id cid,c.name cname from Student s,classes c where s.class_id=c.id;
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hang.domain.Student" useGeneratedKeys="true">
+    insert into student (`name`, gender, class_id
+      )
+    values (#{name,jdbcType=CHAR}, #{gender,jdbcType=CHAR}, #{classId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hang.domain.Student" useGeneratedKeys="true">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=CHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hang.domain.Student">
+    update student
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=CHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=CHAR},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hang.domain.Student">
+    update student
+    set `name` = #{name,jdbcType=CHAR},
+      gender = #{gender,jdbcType=CHAR},
+      class_id = #{classId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
