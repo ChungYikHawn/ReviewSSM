@@ -6,7 +6,7 @@
 <configuration>
     <properties resource="mysql.properties"></properties><!--resource和url 相对和绝对-->
     <typeAliases>
-        <package name="com.hang.domain"/>
+        <package name="cn.hang.domain"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -20,7 +20,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mappers/TeacherDao.xml"></mapper>
-        <mapper resource="mappers/StudentDao.xml"></mapper>
+<!--        <mapper resource="mappers/TeacherDao.xml"></mapper>-->
+<!--        <mapper resource="mappers/StudentDao.xml"></mapper>-->
+        <package name="cn.hang.mapper"/>
     </mappers>
 </configuration>

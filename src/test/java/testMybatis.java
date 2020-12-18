@@ -1,7 +1,8 @@
-import com.hang.dao.StudentDao;
-import com.hang.dao.TeacherDao;
-import com.hang.domain.Student;
-import com.hang.domain.Teacher;
+
+import cn.hang.domain.Student;
+import cn.hang.domain.Teacher;
+import cn.hang.mapper.StudentDao;
+import cn.hang.mapper.TeacherDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
