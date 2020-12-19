@@ -21,8 +21,13 @@
     </bean>
 
 
-
-
+    <bean id="SysExceptionResovler" class="cn.hang.common.SysExceptionResovler"></bean>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="cn.hang.common.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!-- 开启SpringMVC框架注解的支持 -->
     <mvc:annotation-driven/>
 
